@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+	<title>Matching Game</title>
+	<style>
+		div { position: absolute;
+			height: 800px;
+			width: 500px;}
+		.rightSide{left: 700px;
+					border-left: 5px solid black;}
+		img { position: absolute;}
+		h1 {
+	        
+	        font-family: cursive;
+			font-size: 44px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.4px;
+
+			font color: "red";
+}
+h2 {
+	        
+	        font-family: "Brush Script MT", cursive;
+			font-size: 34px;
+			font-style: normal;
+			font-variant: normal;
+			font-weight: 500;
+			line-height: 26.4px;
+
+			
+}
+	</style>
+</head>
+<body onload="generateFaces()">
+	<h1><b><font color="#000080">Missing House!</font></b></h1>
+	<h2> Click on the extra house on the left. </h2>
+	
+	<div id="leftside"></div>
+	<div id="rightside" class="rightSide"></div>
+
+	
+	<!--JAVA SCRIPT STARTS HERE-->
+	<script type="text/javascript">
+	var numberOfFaces = 5;
+	var theLeftSide = document.getElementById("leftside");
+	var theRightSide = document.getElementById("rightside");
+	function generateFaces(){
+		for(i = 0; i < numberOfFaces; i++){
+			var img = document.createElement("img");
+			img.src = "home.png";
+			img.width = "100";
+			img.height = "100";
+			topvar = Math.floor(Math.random()*400);
+			leftvar = Math.floor(Math.random()*400);
+			img.style.top = topvar + 'px';
+			img.style.left = leftvar + 'px';
+			theLeftSide.appendChild(img);
+		}
+		var leftsideImages = theLeftSide.cloneNode(true); 
+		leftsideImages.removeChild(leftsideImages.lastChild);
+		theRightSide.appendChild(leftsideImages);
+
+		var theBody = document.getElementsByTagName("body")[0];
+
+
+		theLeftSide.lastChild.onclick= function nextLevel(event){
+										event.stopPropagation();
+										numberOfFaces += 5;
+										generateFaces();
+										};
+
+		theBody.onclick = function gameOver(){
+							alert("Game Over!");
+							theBody.onclick = null;
+							theLeftSide.lastChild.onclick = null;
+							};
+	}
+	
+
+	</script>
+</body>
+</html>
